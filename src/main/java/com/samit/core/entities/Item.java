@@ -2,13 +2,15 @@ package com.samit.core.entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Item extends BaseEntity{
 
     @SerializedName("id")
     private Long id;
 
     @SerializedName("pic_url")
-    private String picUrl;
+    private List<String> picUrl;
 
     @SerializedName("stock")
     private Long stock;
@@ -27,11 +29,11 @@ public class Item extends BaseEntity{
         this.id = id;
     }
 
-    public String getPicUrl() {
+    public List<String> getPicUrl() {
         return picUrl;
     }
 
-    public void setPicUrl(String picUrl) {
+    public void setPicUrl(List<String> picUrl) {
         this.picUrl = picUrl;
     }
 

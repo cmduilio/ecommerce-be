@@ -5,7 +5,10 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.samit.core.entities.Item;
 import com.samit.core.exceptions.*;
+import com.samit.core.usecases.CheckoutMP;
 import com.samit.core.usecases.SaveUser;
+import com.samit.core.usecases.SelectUser;
+import com.samit.entrypoints.CreateCheckoutMP;
 import com.samit.entrypoints.CreateUser;
 import com.samit.entrypoints.GetUser;
 import com.samit.core.entities.User;
@@ -42,6 +45,8 @@ public class Main extends AbstractModule {
 
         post("/api/user", injector.getInstance(CreateUser.class), JsonUtils::toJson);
 
+        post("/api/checkout", injector.getInstance(CreateCheckoutMP.class), JsonUtils::toJson);
+
     }
 
     @Override
@@ -54,9 +59,12 @@ public class Main extends AbstractModule {
 
         // POST
         bind(CreateUser.class);
+        bind(CreateCheckoutMP.class);
 
         // USECASES
+        bind(CheckoutMP.class);
         bind(SaveUser.class);
+        bind(SelectUser.class);
 
         // EXCEPTION
         exception(CreateUserException.class, this::badRequest);
