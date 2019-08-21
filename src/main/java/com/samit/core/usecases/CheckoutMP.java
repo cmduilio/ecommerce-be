@@ -15,7 +15,7 @@ public class CheckoutMP {
     @Inject
     public CheckoutMP(){
         try {
-            MercadoPago.SDK.setAccessToken("TEST-4206604904984989-091112-35090848ecc48c9cb487ded383ce2e33__LB_LD__-52967229");
+            MercadoPago.SDK.setAccessToken("APP_USR-3786479503513650-072917-96c99c40e4d0b4c7c7b91b3f5c710318-230142422");
         } catch (MPConfException e) {
             e.printStackTrace();
         }
