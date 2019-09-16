@@ -8,13 +8,11 @@ import com.samit.core.exceptions.*;
 import com.samit.core.usecases.CheckoutMP;
 import com.samit.core.usecases.SaveUser;
 import com.samit.core.usecases.SelectUser;
-import com.samit.entrypoints.CreateCheckoutMP;
-import com.samit.entrypoints.CreateUser;
-import com.samit.entrypoints.GetUser;
+import com.samit.entrypoints.*;
 import com.samit.core.entities.User;
-import com.samit.entrypoints.UpdateUser;
 import com.samit.utils.JsonUtils;
 import org.apache.http.HttpStatus;
+import org.hibernate.SessionFactory;
 import spark.Request;
 import spark.Response;
 
@@ -30,10 +28,11 @@ public class Main extends AbstractModule {
     //public static Map<Long, Order> orders = new HashMap<>();
 
     public static void main(String[] args) {
+        System.setProperty("java.security.auth.login.config", "src/main/resources/jaas.config");
+
         Injector injector = Guice.createInjector(new Main());
 
         port(8080);
-
 
         //before("/*", (request,response) -> response.type("application/json"));
 
@@ -45,12 +44,18 @@ public class Main extends AbstractModule {
 
         post("/api/user", injector.getInstance(CreateUser.class), JsonUtils::toJson);
 
+        post("/api/login", injector.getInstance(LoginUser.class), JsonUtils::toJson);
+
         post("/api/checkout", injector.getInstance(CreateCheckoutMP.class), JsonUtils::toJson);
 
     }
 
     @Override
     protected void configure() {
+
+        // DB
+        bind(SessionFactory.class).toInstance(HibernateUtil.getSessionFactory());
+
         // GET
         bind(GetUser.class);
 

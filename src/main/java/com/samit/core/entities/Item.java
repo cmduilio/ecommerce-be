@@ -21,6 +21,9 @@ public class Item extends BaseEntity{
     @SerializedName("price")
     private Double price;
 
+    @SerializedName("active")
+    private Boolean active;
+
     public Long getId() {
         return id;
     }
@@ -61,6 +64,14 @@ public class Item extends BaseEntity{
         this.price = price;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     @Override
     public <T> void update(T dto) {
         Item item = (Item) dto;
@@ -68,5 +79,6 @@ public class Item extends BaseEntity{
         setIfNotNull(this::setStock, item.getStock());
         setIfNotNull(this::setDescription, item.getDescription());
         setIfNotNull(this::setPrice, item.getPrice());
+        setIfNotNull(this::setActive, item.getActive());
     }
 }

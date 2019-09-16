@@ -13,8 +13,18 @@ repositories {
 
 dependencies {
 
+    // HIBERNATE
+    compile  'org.hibernate:hibernate-core:5.4.4.Final'
+    compile 'com.github.v-ladynev:fluent-hibernate-core:0.3.1'
+
+    // DATABASE
+    compile (group: 'mysql', name: 'mysql-connector-java', version: '8.0.11')
+    compile (group: 'commons-dbutils', name: 'commons-dbutils', version: '1.7')
+    compile (group: 'com.h2database', name: 'h2', version: '1.4.187')
+
     // UTILS
     compile 'org.apache.httpcomponents:httpcore:4.4.1'
+    //compile 'org.springframework.security:spring-security-core:5.1.2.RELEASE'
     
     // SPARK
     compile(group: 'com.sparkjava', name: 'spark-core', version: '2.6.0')
