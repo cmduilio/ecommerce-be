@@ -23,10 +23,10 @@ public class UpdateUser implements Route {
     @Override
     public Object handle(Request request, Response response) {
         User userFromBody = (User) JsonUtils.fromJson(request.body(), User.class);
-
-        String id = request.params("userId");
-        this.updateUserValidator.validate(id, userFromBody);
-
-        return this.saveUser.run(userFromBody, id);
+        String idParam = request.params("userId");
+        this.updateUserValidator.validate(idParam, userFromBody);
+        Long id = Long.valueOf(idParam);
+        userFromBody.setId(id);
+        return this.saveUser.update(userFromBody);
     }
 }
