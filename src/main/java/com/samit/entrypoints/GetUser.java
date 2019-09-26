@@ -20,8 +20,9 @@ public class GetUser implements Route {
 
     @Override
     public Object handle(Request request, Response response) {
-        String id = request.params("userId");
-        this.getUserValidator.validate(id);
+        String idParam = request.params("userId");
+        this.getUserValidator.validate(idParam);
+        Long id = Long.valueOf(idParam);
         return this.selectUser.run(id);
     }
 }

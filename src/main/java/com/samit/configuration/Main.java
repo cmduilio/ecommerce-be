@@ -23,10 +23,6 @@ import static spark.Spark.*;
 
 public class Main extends AbstractModule {
 
-    public static Map<Long, User> users = new HashMap<>();
-    public static Map<Long, Item> items = new HashMap<>();
-    //public static Map<Long, Order> orders = new HashMap<>();
-
     public static void main(String[] args) {
         System.setProperty("java.security.auth.login.config", "src/main/resources/jaas.config");
 
@@ -43,6 +39,7 @@ public class Main extends AbstractModule {
         put("/api/user/:userId", injector.getInstance(UpdateUser.class), JsonUtils::toJson);
 
         post("/api/user", injector.getInstance(CreateUser.class), JsonUtils::toJson);
+        post("/api/item", injector.getInstance(CreateItem.class), JsonUtils::toJson);
 
         post("/api/login", injector.getInstance(LoginUser.class), JsonUtils::toJson);
 

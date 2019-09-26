@@ -1,9 +1,13 @@
 package com.samit.configuration;
 
+import java.io.Serializable;
 import java.util.Properties;
 
 import com.github.fluent.hibernate.cfg.scanner.EntityScanner;
+import com.samit.core.entities.User;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
@@ -41,5 +45,49 @@ public class HibernateUtil {
             }
         }
         return sessionFactory;
+    }
+
+    public static <T> T get(Class<T> entity, Serializable id){
+        T object = null;
+        try (Session session = sessionFactory.openSession()) {
+            object = session.get(entity, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return object;
+    }
+
+    public static void save(String entity, Object user){
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            // start a transaction
+            transaction = session.beginTransaction();
+            // save the student object
+            session.save(entity, user);
+            // commit transaction
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+    }
+
+    public static void update(String entity, Object user){
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            // start a transaction
+            transaction = session.beginTransaction();
+            // save the student object
+            session.update(entity, user);
+            // commit transaction
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
     }
 }

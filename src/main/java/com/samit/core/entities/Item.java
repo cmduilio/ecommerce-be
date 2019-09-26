@@ -2,10 +2,13 @@ package com.samit.core.entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import javax.persistence.*;
 import java.util.List;
 
 public class Item extends BaseEntity{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @SerializedName("id")
     private Long id;
 
